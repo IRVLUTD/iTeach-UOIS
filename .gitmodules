@@ -1,0 +1,3 @@
+[submodule "uois-models/UnseenObjectClustering"]
+	path = uois-models/UnseenObjectClustering
+	url = https://github.com/IRVLUTD/UnseenObjectClustering

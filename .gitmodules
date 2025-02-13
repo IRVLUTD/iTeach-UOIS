@@ -1,3 +1,6 @@
 [submodule "uois-models/UnseenObjectClustering"]
 	path = uois-models/UnseenObjectClustering
 	url = https://github.com/IRVLUTD/UnseenObjectClustering
+[submodule "uois-models/UnseenObjectsWithMeanShift"]
+	path = uois-models/UnseenObjectsWithMeanShift
+	url = https://github.com/YoungSean/UnseenObjectsWithMeanShift

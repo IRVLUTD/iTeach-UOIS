@@ -3,8 +3,7 @@
 
 
 ## Datasets
-- Download TOD, OCID, OSD, RealWorld, iTeach-RealWorld datasets from [here](https://utdallas.box.com/v/uois-datasets).
-- Box.com link (no login required).
+- Download TOD, OCID, OSD, RealWorld, iTeach-RealWorld datasets from [here](https://utdallas.box.com/v/uois-datasets). Box.com link (no login required).
 - Put all the data in `DATA/` directory
 
 

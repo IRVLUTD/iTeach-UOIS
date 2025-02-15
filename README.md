@@ -29,6 +29,7 @@ There are two conda envs for respective uois-models with py3.8
 - ucn38 -> /opt/conda/envs/ucn38
 
 
+## Known Error Fixes
 If there is an error like:
 - *AttributeError: module 'PIL.Image' has no attribute 'LINEAR'*, try: `pip install Pillow~=9.5`
 - *AttributeError: module 'distutils' has no attribute 'version'*, try: `pip install setuptools==59.5.0`

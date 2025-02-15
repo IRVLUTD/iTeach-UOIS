@@ -1,5 +1,7 @@
 # iTeach-UOIS
 
+
+
 ## Datasets
 - Download TOD, OCID, OSD, RealWorld, iTeach-RealWorld datasets from [here](https://utdallas.box.com/v/uois-datasets).
 - Box.com link (no login required).
@@ -7,12 +9,14 @@
 
 
 ## Checkpoints
+- Download UCN ckpts from [here](https://utdallas.box.com/s/9vt68miar920hf36egeybfflzvt8c676).
+- Download MSM and SSS ckpts from [here](https://utdallas.box.com/s/vzp8nmalowg4i58y8b9sghv5s7f36xpz).
 - Put all the checkpoints in `ckpts/` directory
 
 ## Setup
 ```shell
 # git clone 
-git clone --recurse-submodules <repo_url>
+git clone --recurse-submodules https://github.com/jishnujayakumar/iTeach-UOIS
 
 # set env vars
 source ./set_env.sh

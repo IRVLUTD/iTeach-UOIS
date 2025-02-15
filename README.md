@@ -28,8 +28,8 @@ cd docker
 ./run_container.sh;
 ```
 There are two conda envs for respective uois-models with py3.8
-- msm38 -> /opt/conda/envs/msm38
-- ucn38 -> /opt/conda/envs/ucn38
+- `msm38` -> `/opt/conda/envs/msm38`
+- `ucn38` -> `/opt/conda/envs/ucn38`
 
 
 ## Known Error Fixes

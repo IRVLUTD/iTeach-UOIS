@@ -14,14 +14,20 @@
 # git clone 
 git clone --recurse-submodules <repo_url>
 
-cd docker; ./run_container.sh; cd ..
-# msm38                  /opt/conda/envs/msm38
-# ucn38                  /opt/conda/envs/ucn38
-
 # set env vars
 source ./set_env.sh
-
 ```
+
+## Docker
+We provide a [docker image](https://hub.docker.com/repository/docker/irvlutd/iteach):
+```shell
+cd docker
+./run_container.sh;
+```
+There are two conda envs for respective uois-models with py3.8
+- msm38 -> /opt/conda/envs/msm38
+- ucn38 -> /opt/conda/envs/ucn38
+
 
 If there is an error like:
 - *AttributeError: module 'PIL.Image' has no attribute 'LINEAR'*, try: `pip install Pillow~=9.5`

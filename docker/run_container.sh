@@ -1,3 +1,9 @@
+#----------------------------------------------------------------------------------------------------
+# Work done while being at the Intelligent Robotics and Vision Lab at the University of Texas, Dallas
+# Please check the licenses of the respective works utilized here before using this script.
+# 🖋️ Jishnu Jaykumar Padalunkal (2025).
+#----------------------------------------------------------------------------------------------------
+
 container_name="iteach-uois"
 docker rm -f $container_name
 DIR=$(pwd)/../

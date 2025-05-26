@@ -118,3 +118,35 @@ Test demo:
 cd uois-models/UnseenObjectsWithMeanShift/lib/fcn
 python iteach_test_demo.py
 ```
+
+## Acknowledgements
+- [MSMFormer](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#unseen-object-instance-segmentation-with-msmformer)
+- [Self-Supervised-UOIS](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#self-supervised-unseen-object-instance-segmentation-via-long-term-robot-interaction)
+- [Robokit](https://github.com/jishnujayakumar/robokit)
+- Note: [UCN](https://github.com/NVlabs/UnseenObjectClustering) exists in the submodules but has not been used in this work.
+  - This is kept just in case of any future baseline comparison or extension.
+
+
+## BibTex 📚
+Please cite ***iTeach*** if it helps your research 🙌:
+```bibtex
+@misc{padalunkal2024iteach,
+    title={iTeach: Interactive Teaching for Robot Perception using Mixed Reality},
+    author={Jishnu Jaykumar P and Cole Salvato and Vinaya Bomnale and Jikai Wang and Yu Xiang},
+    year={2024},
+    eprint={2410.09072},
+    archivePrefix={arXiv},
+    primaryClass={cs.RO}
+}
+```
+
+## Contact 📬
+
+For any clarification, comments, or suggestions, you can choose from the following options:
+
+- Join the [discussion forum](https://github.com/IRVLUTD/iTeach/discussions). 💬
+- Report an [issue](https://github.com/IRVLUTD/iTeach/issues). 🛠️
+- Contact [Jishnu](https://jishnujayakumar.github.io/). 📧
+
+## Acknowledgements 🙏
+This work was supported by the DARPA Perceptually-enabled Task Guidance (PTG) Program under contract number HR00112220005, the Sony Research Award Program, and the National Science Foundation (NSF) under Grant No.2346528. We thank [Sai Haneesh Allu](https://saihaneeshallu.github.io/) and [Ninad Khargonkar](https://kninad.github.io/) for their assistance with the real-world experiments. 🙌

@@ -106,9 +106,7 @@ python ./lib/fcn/iteach_test_demo.py
   python iteach_test_demo.py
   ```
 - Sample output
-
-  <img src="media/iteach-uois-qual.webp" alt="drawing" width="50%"/>
-<!-- ![alt text](media/iteach-uois-qual.webp) -->
+![alt text](media/iteach-uois-qual.webp)
 
 ## 🙌 Works used
 - [MSMFormer](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#unseen-object-instance-segmentation-with-msmformer)

@@ -119,7 +119,7 @@ cd uois-models/UnseenObjectsWithMeanShift/lib/fcn
 python iteach_test_demo.py
 ```
 
-## Acknowledgements
+## 🙌 Works used
 - [MSMFormer](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#unseen-object-instance-segmentation-with-msmformer)
 - [Self-Supervised-UOIS](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#self-supervised-unseen-object-instance-segmentation-via-long-term-robot-interaction)
 - [Robokit](https://github.com/jishnujayakumar/robokit)

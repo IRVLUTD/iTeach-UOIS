@@ -2,13 +2,13 @@
 # iTeach-UOIS
 
 ## 📦 Datasets
-- Download TOD, OCID, OSD, RealWorld, iTeach-RealWorld datasets from [here](https://utdallas.box.com/v/uois-datasets).
+- Download TOD, OCID, OSD, RobotPushing, iTeach-HumanPlay datasets from [here](https://utdallas.box.com/v/uois-datasets).
 - Copy `OSD-0.2/` to `OSD-0.2-depth/` folder.
 - Put all the data in the `DATA/` directory.
 
 ## 🔑 Checkpoints
-- Download UCN checkpoints from [here](https://utdallas.box.com/s/9vt68miar920hf36egeybfflzvt8c676).
-- Download MSM and SSS checkpoints from [here](https://utdallas.box.com/s/vzp8nmalowg4i58y8b9sghv5s7f36xpz).
+- Download [UCN](https://arxiv.org/pdf/2007.15157) checkpoints from [here](https://utdallas.box.com/s/9vt68miar920hf36egeybfflzvt8c676).
+- Download [MSM](https://arxiv.org/abs/2211.11679) and [SSS](https://roboticsproceedings.org/rss19/p017.pdf) checkpoints from [here](https://utdallas.box.com/s/vzp8nmalowg4i58y8b9sghv5s7f36xpz).
 - Put all the checkpoints in the `ckpts/` directory.
 
 ## ⚙️ Setup

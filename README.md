@@ -55,13 +55,13 @@ ln -s <human-data-dir> humanplay_data
 ![alt text](media/iteach-data-capture-and-annotation.png)
 <center>iTeach-UOIS data capture and GT mask generation</center>
 
+---
+### 🏋️‍♂️ MSMFormer Training & Testing (with LoRA, RGB, RGBD)
 Modify `cfg.INPUT` in `config.py` for RGB or RGBD:
 ```bash
 $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/lib/fcn/config.py
 ```
 
----
-### 🏋️‍♂️ MSMFormer Training & Testing (with LoRA, RGB, RGBD)
 ```bash
 cd MSMFormer
 

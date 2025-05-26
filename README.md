@@ -49,45 +49,28 @@ If you encounter:
 - **D5**: [Link](https://utdallas.box.com/v/iTeach-HumanPlay-D5)  
 - **D40**: [Link](https://utdallas.box.com/v/iTeach-HumanPlay-D40)  
 ```bash
+$ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/data
 ln -s <human-data-dir> humanplay_data
 ```
 
-## 🧹 Data Preprocessing (Human-aided + GDINO + SAM2)
-- Note: This is just for sanity check. The data used in the paper is obtained using HoloLens point prompt method.
-```bash
-cd data-preprocessing/
-
-# Step 1
-python make_data_ready_for_gsam2.py
-
-# Step 2: Setup robokit
-# Follow: https://github.com/jishnujayakumar/robokit?tab=readme-ov-file#installation
-
-# Step 3: Generate GT masks (last frame as first frame for clean->clutter)
-bash /home/jishnu/Projects/iTeach-UOIS/robokit/get_gsam2_gt_masks.sh
-
-# Step 4: Rename and save masks in original order (clutter->clean)
-python /home/jishnu/iTeach-UOIS-Data-Collection/rename_and_save_gt_masks.py
-```
-
-
 Modify `cfg.INPUT` in `config.py` for RGB or RGBD:
 ```bash
-iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/lib/fcn/config.py
+$ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/lib/fcn/config.py
 ```
 
 ---
 ### 🏋️‍♂️ MSMFormer Training & Testing (with LoRA, RGB, RGBD)
 ```bash
-# LoRA (rgbd lora not possible due to package error)
 cd MSMFormer
-python iteach_train_net_pretrained.py --num-gpus 1 --dist-url tcp://127.0.0.1:12345     --cfg /home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/configs/humanplay_RGBD.yaml     --out_dir human_play_rgbd_f2_mix_20000_250_lora_8 --use_lora
-
-# Test
-python /home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/lib/test_data.py
 
 # Tabletop training (RGB)
-python tabletop_train_net_pretrained.py --num-gpus 2 --dist-url tcp://127.0.0.1:12345     --cfg /home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/configs/humanplay_RGB.yaml     --out_dir human_play_rgb
+python tabletop_train_net_pretrained.py --num-gpus 2 --dist-url tcp://127.0.0.1:12345     --cfg $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/MSMFormer/configs/humanplay_RGB.yaml --out_dir test_experiment
+
+# LoRA (rgbd lora not possible due to package error)
+python iteach_train_net_pretrained.py --num-gpus 1 --dist-url tcp://127.0.0.1:12345     --cfg $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/MSMFormer/configs/humanplay_RGBD.yaml --out_dir test_experiment --use_lora
+
+# Test
+python $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/lib/test_data.py
 ```
 
 Run demo:
@@ -98,26 +81,34 @@ python ./lib/fcn/iteach_test_demo.py
 
 ### 🎯 Finetuning
 - **RGB**:
-```bash
-cd uois-models/UnseenObjectsWithMeanShift/;
-./experiments/scripts/iteach.demo_msmformer_rgb_finetuned.sh human_play_rgb
-```
+  ```bash
+  cd uois-models/UnseenObjectsWithMeanShift/;
+  ./experiments/scripts/iteach.demo_msmformer_rgb_finetuned.sh test_experiment
+  ```
 - **RGBD**:
-```bash
-cd uois-models/UnseenObjectsWithMeanShift/MSMFormer
-python iteach_train_net_pretrained.py --out_dir "test_experiment" --cfg configs/mixture_ResNet50.yaml
-```
+  ```bash
+  cd uois-models/UnseenObjectsWithMeanShift/MSMFormer
+  python iteach_train_net_pretrained.py --out_dir test_experiment --cfg configs/mixture_ResNet50.yaml
+  ```
 
-Results get saved to:
-```bash
-../../MSMFormer/test_experiment
-```
+- Results get saved to:
+  ```bash
+  ../../MSMFormer/test_experiment
+  ```
 
-Test demo:
-```bash
-cd uois-models/UnseenObjectsWithMeanShift/lib/fcn
-python iteach_test_demo.py
-```
+- ✨ Finetuned model ckpts are available:
+  - **D5**: [Link](https://utdallas.box.com/v/iTeach-UOIS-D5-ckpts)
+  - **D40**: [Link](https://utdallas.box.com/v/iTeach-UOIS-D40-ckpts)
+
+- Test demo:
+  ```bash
+  cd uois-models/UnseenObjectsWithMeanShift/lib/fcn
+  python iteach_test_demo.py
+  ```
+- Sample output
+
+  <img src="media/iteach-uois-qual.webp" alt="drawing" width="50%"/>
+<!-- ![alt text](media/iteach-uois-qual.webp) -->
 
 ## 🙌 Works used
 - [MSMFormer](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#unseen-object-instance-segmentation-with-msmformer)

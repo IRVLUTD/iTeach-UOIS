@@ -127,7 +127,7 @@ python iteach_test_demo.py
   - This is kept just in case of any future baseline comparison or extension.
 
 
-## BibTex 📚
+## 📚 BibTex
 Please cite ***iTeach*** if it helps your research 🙌:
 ```bibtex
 @misc{padalunkal2024iteach,
@@ -140,13 +140,12 @@ Please cite ***iTeach*** if it helps your research 🙌:
 }
 ```
 
-## Contact 📬
-
+## 📬 Contact
 For any clarification, comments, or suggestions, you can choose from the following options:
 
 - Join the [discussion forum](https://github.com/IRVLUTD/iTeach/discussions). 💬
 - Report an [issue](https://github.com/IRVLUTD/iTeach/issues). 🛠️
 - Contact [Jishnu](https://jishnujayakumar.github.io/). 📧
 
-## Acknowledgements 🙏
+## 🙏 Acknowledgements
 This work was supported by the DARPA Perceptually-enabled Task Guidance (PTG) Program under contract number HR00112220005, the Sony Research Award Program, and the National Science Foundation (NSF) under Grant No.2346528. We thank [Sai Haneesh Allu](https://saihaneeshallu.github.io/) and [Ninad Khargonkar](https://kninad.github.io/) for their assistance with the real-world experiments. 🙌

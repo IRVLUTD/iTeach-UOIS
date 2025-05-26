@@ -54,7 +54,7 @@ ln -s <human-data-dir> humanplay_data
 ```
 ![alt text](media/iteach-data-capture-and-annotation.png)
 
-<div align="center">>iTeach-UOIS data capture and GT mask generation</div>
+<div align="center">iTeach-UOIS data capture and GT mask generation</div>
 
 ---
 ### 🏋️‍♂️ MSMFormer Training & Testing (with LoRA, RGB, RGBD)
@@ -110,7 +110,7 @@ python ./lib/fcn/iteach_test_demo.py
   ```
 - Output from best finetuned model
 ![alt text](media/iteach-uois-qual.webp)
-<div align="center">>TableTop and BeyondTableTop: (Shelf, Sofa) scenes</div>
+<div align="center">TableTop and BeyondTableTop: (Shelf, Sofa) scenes</div>
 
 ## 🙌 Works used
 - [MSMFormer](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#unseen-object-instance-segmentation-with-msmformer)

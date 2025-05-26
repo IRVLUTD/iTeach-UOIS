@@ -52,6 +52,8 @@ If you encounter:
 $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/data
 ln -s <human-data-dir> humanplay_data
 ```
+![alt text](media/iteach-data-capture-and-annotation.png)
+<center>iTeach-UOIS data capture and GT mask generation</center>
 
 Modify `cfg.INPUT` in `config.py` for RGB or RGBD:
 ```bash
@@ -105,8 +107,9 @@ python ./lib/fcn/iteach_test_demo.py
   cd uois-models/UnseenObjectsWithMeanShift/lib/fcn
   python iteach_test_demo.py
   ```
-- Sample output (TableTop and BeyondTableTop: {Shelf, Sofa})
+- Output from best finetuned model
 ![alt text](media/iteach-uois-qual.webp)
+<center>TableTop and BeyondTableTop: (Shelf, Sofa) scenes</center>
 
 ## 🙌 Works used
 - [MSMFormer](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#unseen-object-instance-segmentation-with-msmformer)

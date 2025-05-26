@@ -19,7 +19,7 @@ DATASETS:
   TRAIN: ("mixture_object_train",)
   TEST: ()
 MODEL:
-  WEIGHTS: "../data/checkpoints/rgbd_pretrain/norm_RGBD_pretrained.pth"
+  WEIGHTS: "../data/checkpoints/rgb_pretrain/norm_RGB_pretrained.pth"
   USE_DEPTH: False
   USE_OTHER_BACKBONE: True 
   MASK_ON: True

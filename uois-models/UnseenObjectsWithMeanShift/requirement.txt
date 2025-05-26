@@ -1,4 +1,4 @@
-opencv-python == 4.2.0.34
+opencv-python # == 4.2.0.34
 transforms3d
 pillow
 IPython
@@ -16,3 +16,4 @@ timm
 h5py
 submitit
 scikit-image
+Pillow~=9.5

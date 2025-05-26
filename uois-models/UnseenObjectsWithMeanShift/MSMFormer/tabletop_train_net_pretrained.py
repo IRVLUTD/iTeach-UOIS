@@ -62,6 +62,7 @@ from datasets.tabletop_dataset import TableTopDataset, getTabletopDataset
 from datasets.pushing_dataset import PushingDataset
 from datasets.mixture_dataset import MixtureDataset
 from datasets.uoais_dataset import UOAIS_Dataset
+from datasets.humanplay_dataset import HumanPlayDataset
 from tabletop_config import add_tabletop_config
 from meanshiftformer.config import add_meanshiftformer_config
 
@@ -264,6 +265,9 @@ for d in ["train", "test"]:
 
     DatasetCatalog.register("uoais_object_" + d, lambda d=d: UOAIS_Dataset(d))
     MetadataCatalog.get("uoais_object_" + d).set(thing_classes=['__background__', 'object'])
+
+    DatasetCatalog.register("humanplay_object_" + d, lambda d=d: HumanPlayDataset(d))
+    MetadataCatalog.get("humanplay_object_" + d).set(thing_classes=['__background__', 'object'])
 #
 # metadata = MetadataCatalog.get("tabletop_object_train")
 
@@ -280,20 +284,20 @@ def setup(args):
     add_deeplab_config(cfg)
     add_meanshiftformer_config(cfg)
     # cfg_file = "configs/UOAIS_ResNet50.yaml"
-    cfg_file = "configs/mixture_ResNet50.yaml" # RGBD
-    # cfg_file = "configs/mixture_UCN.yaml" # RGB
+    cfg_file = args.cfg # RGB
+    # cfg_file = "configs/mixture_UCN.yaml" # RGBD
     cfg.merge_from_file(cfg_file)
     # cfg.merge_from_file(args.config_file)
     # cfg.merge_from_list(args.opts)
     # some configs for demo training
-    cfg.OUTPUT_DIR = "./test_sss_rgbd"
+    cfg.OUTPUT_DIR = args.out_dir
     # RGBD UCN
     # cfg.MODEL.WEIGHTS = "../data/checkpoints/output_1008_normal_BGR_model_0069999.pth"
     # COLOR, only RGB, UCN
     #cfg.MODEL.WEIGHTS = "../data/checkpoints/RGB_norm_model_0069999.pth"
     #cfg.MODEL.WEIGHTS = "./output_1229_Res50_learn_10dec/model_0017499.pth"
     cfg.SOLVER.MAX_ITER = 3000
-    cfg.SOLVER.CHECKPOINT_PERIOD = 1000
+    cfg.SOLVER.CHECKPOINT_PERIOD = 100
     cfg.freeze()
     default_setup(cfg, args)
     # Setup logger for "mask_former" module
@@ -302,6 +306,7 @@ def setup(args):
 
 
 def main(args):
+
     cfg = setup(args)
 
     if args.eval_only:
@@ -322,10 +327,18 @@ def main(args):
 
 
 
+def custom_argument_parser():
+    parser = default_argument_parser()
+    parser.add_argument("--cfg", type=str, help="config for model", required=True)
+    parser.add_argument("--out_dir", type=str, help="experiment out_dir", required=True)
+    # parser.add_argument("--out_dir", type=str, help="experiment out_dir")
+    return parser
+
 
 if __name__ == "__main__":
 
-    args = default_argument_parser().parse_args()
+    args = custom_argument_parser().parse_args()
+
     print("Command Line Args:", args)
     launch(
         main,

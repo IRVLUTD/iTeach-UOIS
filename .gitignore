@@ -1,8 +1,11 @@
 # Data and ckpts
+CoRL25/
 DATA/
+OSD
 OCID
 ckpts/
 tabletop
+iteach-humanplay-dataset/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

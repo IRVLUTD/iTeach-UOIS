@@ -228,7 +228,7 @@ class ImageListener:
             self.image_refined_pub.publish(rgb_msg_refined)
             
         # save results
-        save_result = False
+        save_result = True
         if save_result:
             result = {'rgb': im_color, 'labels': label, 'labels_refined': label_refined}
             filename = os.path.join(self.output_dir, '%06d.mat' % self.counter)

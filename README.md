@@ -105,7 +105,7 @@ python ./lib/fcn/iteach_test_demo.py
   cd uois-models/UnseenObjectsWithMeanShift/lib/fcn
   python iteach_test_demo.py
   ```
-- Sample output
+- Sample output (TableTop and BeyondTableTop: {Shelf, Sofa})
 ![alt text](media/iteach-uois-qual.webp)
 
 ## 🙌 Works used

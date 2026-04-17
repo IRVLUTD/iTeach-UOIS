@@ -124,12 +124,13 @@ python ./lib/fcn/iteach_test_demo.py
 Please cite ***iTeach*** if it helps your research 🙌:
 ```bibtex
 @misc{padalunkal2024iteach,
-    title={iTeach: Interactive Teaching for Robot Perception using Mixed Reality},
-    author={Jishnu Jaykumar P and Cole Salvato and Vinaya Bomnale and Jikai Wang and Yu Xiang},
-    year={2024},
-    eprint={2410.09072},
-    archivePrefix={arXiv},
-    primaryClass={cs.RO}
+  title         = {iTeach: In the Wild Interactive Teaching for Failure-Driven Adaptation of Robot Perception},
+  author        = {Jishnu Jaykumar P and Cole Salvato and Vinaya Bomnale and Jikai Wang and Yu Xiang},
+  year          = {2026},
+  eprint        = {2410.09072},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2410.09072}
 }
 ```
 

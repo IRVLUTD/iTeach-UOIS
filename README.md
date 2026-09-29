@@ -65,28 +65,42 @@ flowchart LR
 
 ## 📑 Contents
 
-<table>
-<tr>
-<td width="50%" valign="top"><kbd>01</kbd> <small>🧰 Set up</small><br><br><b>📦 <a href="#-datasets">Datasets</a></b><br><small>Download the data and see where it goes</small></td>
-<td width="50%" valign="top"><kbd>02</kbd> <small>🧰 Set up</small><br><br><b>🔑 <a href="#-checkpoints">Checkpoints</a></b><br><small>Pretrained and iTeach fine-tuned weights</small></td>
-</tr>
-<tr>
-<td width="50%" valign="top"><kbd>03</kbd> <small>🧰 Set up</small><br><br><b>⚙️ <a href="#️-setup">Setup</a></b><br><small>Install with Docker or locally</small><br><small>↳ <a href="#-option-a-docker-recommended">Docker</a> · <a href="#-option-b-local-install">Local</a></small></td>
-<td width="50%" valign="top"><kbd>04</kbd> <small>📖 Reference</small><br><br><b>🗂️ <a href="#️-iteach-humanplay-data-layout">Data Layout</a></b><br><small>What every scene folder must contain</small></td>
-</tr>
-<tr>
-<td width="50%" valign="top"><kbd>05</kbd> <small>▶️ Run</small><br><br><b>🎭 <a href="#-generating-ground-truth-masks-for-new-humanplay-scenes">Ground-Truth Masks</a></b><br><small>Turn a new capture into training labels with SAM2</small></td>
-<td width="50%" valign="top"><kbd>06</kbd> <small>▶️ Run</small><br><br><b>🏋️ <a href="#️-msmformer-training">Training</a></b><br><small>Fine-tune MSMFormer: RGB, RGB-D, LoRA</small></td>
-</tr>
-<tr>
-<td width="50%" valign="top"><kbd>07</kbd> <small>▶️ Run</small><br><br><b>🤖 <a href="#-live-ros-node-on-the-robot">Live ROS Node</a></b><br><small>Serve predictions to the HoloLens during a session</small></td>
-<td width="50%" valign="top"><kbd>08</kbd> <small>▶️ Run</small><br><br><b>📊 <a href="#-evaluation">Evaluation</a></b><br><small>Score a model on the HumanPlay test set</small></td>
-</tr>
-<tr>
-<td width="50%" valign="top"><kbd>09</kbd> <small>📖 Reference</small><br><br><b>🐛 <a href="#-known-error-fixes">Troubleshooting</a></b><br><small>Fixes for common install and runtime errors</small></td>
-<td width="50%" valign="top"><kbd>✦</kbd> <small>📚 MORE</small><br><br><b>🙌 <a href="#-built-on">Built On</a> · 📚 <a href="#-citation">Citation</a> · 📬 <a href="#-contact">Contact</a> · 🙏 <a href="#-acknowledgements">Acknowledgements</a></b><br><small>How to cite iTeach, and how to reach us</small></td>
-</tr>
-</table>
+<p align="center">
+<a href="#-datasets"><img src="media/toc/01-light.svg#gh-light-mode-only" width="49%" alt="01 · Datasets: Download the data and see where it goes"></a><a href="#-datasets"><img src="media/toc/01-dark.svg#gh-dark-mode-only" width="49%" alt="01 · Datasets: Download the data and see where it goes"></a>
+<a href="#-checkpoints"><img src="media/toc/02-light.svg#gh-light-mode-only" width="49%" alt="02 · Checkpoints: Pretrained and iTeach fine-tuned weights"></a><a href="#-checkpoints"><img src="media/toc/02-dark.svg#gh-dark-mode-only" width="49%" alt="02 · Checkpoints: Pretrained and iTeach fine-tuned weights"></a>
+<a href="#️-setup"><img src="media/toc/03-light.svg#gh-light-mode-only" width="49%" alt="03 · Setup: Install with Docker or locally"></a><a href="#️-setup"><img src="media/toc/03-dark.svg#gh-dark-mode-only" width="49%" alt="03 · Setup: Install with Docker or locally"></a>
+<a href="#️-iteach-humanplay-data-layout"><img src="media/toc/04-light.svg#gh-light-mode-only" width="49%" alt="04 · Data Layout: What every scene folder must contain"></a><a href="#️-iteach-humanplay-data-layout"><img src="media/toc/04-dark.svg#gh-dark-mode-only" width="49%" alt="04 · Data Layout: What every scene folder must contain"></a>
+<a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><img src="media/toc/05-light.svg#gh-light-mode-only" width="49%" alt="05 · Ground-Truth Masks: Turn a new capture into labels with SAM2"></a><a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><img src="media/toc/05-dark.svg#gh-dark-mode-only" width="49%" alt="05 · Ground-Truth Masks: Turn a new capture into labels with SAM2"></a>
+<a href="#️-msmformer-training"><img src="media/toc/06-light.svg#gh-light-mode-only" width="49%" alt="06 · Training: Fine-tune MSMFormer: RGB, RGB-D, LoRA"></a><a href="#️-msmformer-training"><img src="media/toc/06-dark.svg#gh-dark-mode-only" width="49%" alt="06 · Training: Fine-tune MSMFormer: RGB, RGB-D, LoRA"></a>
+<a href="#-live-ros-node-on-the-robot"><img src="media/toc/07-light.svg#gh-light-mode-only" width="49%" alt="07 · Live ROS Node: Serve predictions to the HoloLens"></a><a href="#-live-ros-node-on-the-robot"><img src="media/toc/07-dark.svg#gh-dark-mode-only" width="49%" alt="07 · Live ROS Node: Serve predictions to the HoloLens"></a>
+<a href="#-evaluation"><img src="media/toc/08-light.svg#gh-light-mode-only" width="49%" alt="08 · Evaluation: Score a model on the HumanPlay test set"></a><a href="#-evaluation"><img src="media/toc/08-dark.svg#gh-dark-mode-only" width="49%" alt="08 · Evaluation: Score a model on the HumanPlay test set"></a>
+<a href="#-known-error-fixes"><img src="media/toc/09-light.svg#gh-light-mode-only" width="49%" alt="09 · Troubleshooting: Fixes for common install and runtime errors"></a><a href="#-known-error-fixes"><img src="media/toc/09-dark.svg#gh-dark-mode-only" width="49%" alt="09 · Troubleshooting: Fixes for common install and runtime errors"></a>
+<a href="#-built-on"><img src="media/toc/more-light.svg#gh-light-mode-only" width="49%" alt="✦ · Credits · Cite · Contact: Built on, citation, contact, thanks"></a><a href="#-built-on"><img src="media/toc/more-dark.svg#gh-dark-mode-only" width="49%" alt="✦ · Credits · Cite · Contact: Built on, citation, contact, thanks"></a>
+</p>
+
+<details>
+<summary><b>🗂️ Full index</b> <sub>(every section and subsection as text links)</sub></summary>
+<br>
+
+<ol>
+  <li><a href="#-datasets"><b>Datasets</b></a> · Download the data and see where it goes</li>
+  <li><a href="#-checkpoints"><b>Checkpoints</b></a> · Pretrained and iTeach fine-tuned weights</li>
+  <li><a href="#️-setup"><b>Setup</b></a> · Install with Docker or locally
+    <ul>
+    <li><a href="#-option-a-docker-recommended">Docker</a></li>
+    <li><a href="#-option-b-local-install">Local install</a></li>
+    </ul>
+  </li>
+  <li><a href="#️-iteach-humanplay-data-layout"><b>Data Layout</b></a> · What every scene folder must contain</li>
+  <li><a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><b>Ground-Truth Masks</b></a> · Turn a new capture into labels with SAM2</li>
+  <li><a href="#️-msmformer-training"><b>Training</b></a> · Fine-tune MSMFormer: RGB, RGB-D, LoRA</li>
+  <li><a href="#-live-ros-node-on-the-robot"><b>Live ROS Node</b></a> · Serve predictions to the HoloLens</li>
+  <li><a href="#-evaluation"><b>Evaluation</b></a> · Score a model on the HumanPlay test set</li>
+  <li><a href="#-known-error-fixes"><b>Troubleshooting</b></a> · Fixes for common install and runtime errors</li>
+  <li><a href="#-built-on">Built On</a> · <a href="#-citation">Citation</a> · <a href="#-contact">Contact</a> · <a href="#-acknowledgements">Acknowledgements</a></li>
+</ol>
+
+</details>
 
 <br>
 

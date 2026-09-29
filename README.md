@@ -251,6 +251,12 @@ scene_XXX/
 > [!NOTE]
 > The released datasets **already include `gt_masks/`**. You only need this section for scenes you capture yourself.
 
+<p align="center">
+  <img src="media/sam2-mask-prop.webp" width="85%" alt="SAM2 label propagation">
+  <br>
+  <sub><i>SAM2 (video mode) propagates masks backwards from the final annotated frame to all earlier frames, producing dense per-frame supervision.</i></sub>
+</p>
+
 <br>
 
 **Step 1: Capture and label**
@@ -344,7 +350,7 @@ Checkpoints and `config.yaml` are saved to `uois-models/UnseenObjectsWithMeanShi
 <p align="center">
   <img src="media/iteach-uois-qual.webp" alt="TableTop and BeyondTableTop scenes" width="90%">
   <br>
-  <sub><i>TableTop and BeyondTableTop (shelf, sofa) scenes</i></sub>
+  <sub><i>Left → right: ground truth, pretrained MSMFormer, and iTeach fine-tuning rounds FT1, FT3, FT5, on tabletop, shelf and sofa scenes.</i></sub>
 </p>
 
 <br>
@@ -371,6 +377,14 @@ cd $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift
 | `--save` | Also write frames and predictions to `output/<task_name>/` |
 | `f0` block (default) | Pretrained MSMFormer |
 | `f1` / `f2` blocks | Models fine-tuned after each iTeach round (`new_ckpts/f*/model_final.pth`) |
+
+<br>
+
+<p align="center">
+  <img src="media/realworld-with-gto.webp" width="100%" alt="Real-world pick-and-place with GTO">
+  <br>
+  <sub><i>Downstream on the robot: iTeach-UOIS segmentation feeds GTO motion planning and grasping, turning perception gains into reliable picks and places.</i></sub>
+</p>
 
 <br>
 

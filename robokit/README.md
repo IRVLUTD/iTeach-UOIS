@@ -31,7 +31,7 @@ python convert2jpg_in_reverse.py --input_dir <scene_dir>   # reads <scene_dir>/r
 ## 🎭 2 · Propagate the masks backwards
 
 ```bash
-python propogate_masks_via_bbox_prompt_samv2.py --input_dir <scene_dir>/jpg
+python propogate_masks_via_bbox_prompt_samv2.py --input_dir <scene_dir>   # reads <scene_dir>/jpg/ (the script adds jpg/ itself)
 ```
 
 | Reads | Writes |

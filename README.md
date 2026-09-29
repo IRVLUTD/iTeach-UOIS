@@ -162,6 +162,13 @@ for s in iTeach-HumanPlay/humanplay-d5/scene_*; do ln -sfn gsam2/masks "$s/gt_ma
 ln -sfn humanplay-d40 iTeach-HumanPlay/training_set     # or: ln -sfn humanplay-d5 …
 ```
 
+**Check it** (after [Setup](#️-setup), in the MSMFormer env). This loads the training split and reads the first sample's `rgb`, `gt_masks` and `depth`:
+
+```bash
+cd $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/lib
+python test_data.py      # prints the number of training images and a depth shape such as (480, 640)
+```
+
 <br>
 
 <div align="right"><sub><a href="#-contents">⬆ back to contents</a></sub></div>
@@ -320,7 +327,7 @@ python convert2jpg_in_reverse.py --input_dir <scene_dir>
 **Step 3: Propagate the masks backwards**
 
 ```bash
-python propogate_masks_via_bbox_prompt_samv2.py --input_dir <scene_dir>/jpg
+python propogate_masks_via_bbox_prompt_samv2.py --input_dir <scene_dir>   # reads <scene_dir>/jpg/ (the script adds jpg/ itself)
 ```
 
 This reads `<scene_dir>/prompts.json["bboxes_xyxy"]` and writes `<scene_dir>/gsam2/{masks, palette, bbox_overlay, rgb_and_mask}/`. It then symlinks `<scene_dir>/gt_masks` → `gsam2/masks`, with the masks named in the original (forward) frame order.

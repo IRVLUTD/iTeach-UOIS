@@ -1,9 +1,11 @@
 #!/bin/bash
+# Usage: ./experiments/scripts/iteach.demo_msmformer_rgbd_finetuned.sh [image_dir]
+# Run from uois-models/UnseenObjectsWithMeanShift. image_dir holds color-*.png / depth-*.png pairs.
 
 set -x
 set -e
 export PYTHONUNBUFFERED="True"
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 
 # Pretrained MSMFormer
 
@@ -20,7 +22,7 @@ export CUDA_VISIBLE_DEVICES=0
 
 
 ./tools/test_image_with_ms_transformer.py  \
---imgdir /home/jishnu/Desktop/iros25-submission/iros25-sub-rw/gt-msm-iteach-comparision/first-frame   \
+--imgdir ${1:-data/demo}   \
 --color color-*.png   \
 --depth depth-*.png \
 --cfg experiments/cfgs/seg_resnet34_8s_embedding_cosine_rgbd_add_tabletop.yml \
@@ -37,7 +39,7 @@ export CUDA_VISIBLE_DEVICES=0
 
 
 # ./tools/test_image_with_ms_transformer.py  \
-# --imgdir /home/jishnu/Desktop/iros25-submission/iros25-sub-rw/gt-msm-iteach-comparision/last-frame   \
+# --imgdir <image_dir>   \
 # --color color-*.png   \
 # --depth depth-*.png \
 # --cfg experiments/cfgs/seg_resnet34_8s_embedding_cosine_rgbd_add_tabletop.yml \

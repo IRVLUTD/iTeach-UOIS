@@ -1,3 +1,4 @@
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
@@ -55,7 +56,8 @@ class BoundingBoxAnnotator:
 
 # Usage
 def main():
-    image_path = "/home/jishnu/iTeach-UOIS-Data-Collection/data/scene6/jpg/000000.jpg"  # Change this to your image path
+    # Usage: python bbox-annotator.py <scene_dir>/jpg/000000.jpg
+    image_path = sys.argv[1]
     image = Image.open(image_path)
     
     annotator = BoundingBoxAnnotator(image)

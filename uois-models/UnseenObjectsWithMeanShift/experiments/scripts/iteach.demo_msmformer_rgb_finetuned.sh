@@ -1,9 +1,11 @@
 #!/bin/bash
+# Usage: ./experiments/scripts/iteach.demo_msmformer_rgb_finetuned.sh <MSMFormer_out_dir>
+# Run from uois-models/UnseenObjectsWithMeanShift. <MSMFormer_out_dir> is the --out_dir used for training.
 
 set -x
 set -e
 export PYTHONUNBUFFERED="True"
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-1}
 
 # --pretrained MSMFormer/test_sss_rgb_mix/model_0002999.pth \
 # --pretrained data/checkpoints/rgb_pretrain/norm_RGB_pretrained.pth \

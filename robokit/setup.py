@@ -45,7 +45,8 @@ class FileFetch(install):
 
         # Step SAMv2.2: cd to samv2 and checkout the desired commit branch
         os.chdir(samv2_dir)
-        subprocess.run(["git", "checkout", "--branch", "c2ec8e14a185632b0a5d8b161928ceb50197eddc"])
+        # Pin SAM2: the sed below comments out line 171 of *this* commit's setup.py.
+        subprocess.run(["git", "checkout", "c2ec8e14a185632b0a5d8b161928ceb50197eddc"], check=True)
 
         # Step SAMv2.3: Use sed to comment out line 171 (to get rid of py>=3.10)
         subprocess.run(["sed", "-i", "171s/^/#/", "setup.py"], check=True)

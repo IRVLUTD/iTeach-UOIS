@@ -1,15 +1,17 @@
 #!/bin/bash
+# Usage: ./experiments/scripts/hp.iteach.demo_msmformer_rgb_finetuned.sh <MSMFormer_out_dir> [scene_dir]
+# Run from uois-models/UnseenObjectsWithMeanShift. <MSMFormer_out_dir> is the --out_dir used for training.
 
 set -x
 set -e
 export PYTHONUNBUFFERED="True"
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-1}
 
 # --pretrained MSMFormer/test_sss_rgb_mix/model_0002999.pth \
 # --pretrained data/checkpoints/rgb_pretrain/norm_RGB_pretrained.pth \
 
 ./tools/test_image_with_ms_transformer.py  \
---imgdir /home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/data/humanplay_data/test_set/scene47   \
+--imgdir ${2:-data/humanplay_data/test_set/scene47}   \
 --color rgb/*.png   \
 --depth depth/*.png \
 --cfg experiments/cfgs/seg_resnet34_8s_embedding_cosine_color_tabletop.yml \

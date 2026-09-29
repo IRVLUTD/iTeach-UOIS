@@ -49,7 +49,7 @@ def compute_xyz(depth_img, fx, fy, px, py, height, width):
 
 class ImageListener:
 
-    def __init__(self, predictor, predictor_crop, cfg_transformer, cfg_transformer_crop):
+    def __init__(self, predictor, predictor_crop, cfg_transformer, cfg_transformer_crop, task_name='realworld', save_data=False):
 
         self.predictor = predictor
         self.predictor_crop = predictor_crop
@@ -61,7 +61,10 @@ class ImageListener:
         self.rgb_frame_id = None
         self.rgb_frame_stamp = None
         self.counter = 0
-        self.output_dir = 'output/real_world'
+        self.output_dir = f'output/{task_name}'
+        self.save_data = save_data
+
+        print(self.output_dir, task_name)
 
         # initialize a node
         rospy.init_node("seg_rgb")
@@ -129,7 +132,7 @@ class ImageListener:
                     depth.encoding))
             return
 
-        im = ros_numpy.numpify(rgb)
+        im = ros_numpy.numpify(rgb)[:,:,::-1]
 
         # rescale image if necessary
         if cfg.TEST.SCALES_BASE[0] != 1:
@@ -228,20 +231,30 @@ class ImageListener:
             self.image_refined_pub.publish(rgb_msg_refined)
             
         # save results
-        save_result = True
+        save_result = self.save_data
+        os.makedirs(self.output_dir, exist_ok=True)
         if save_result:
-            result = {'rgb': im_color, 'labels': label, 'labels_refined': label_refined}
-            filename = os.path.join(self.output_dir, '%06d.mat' % self.counter)
-            print(filename)
-            scipy.io.savemat(filename, result, do_compression=True)
-            filename = os.path.join(self.output_dir, '%06d.jpg' % self.counter)
-            cv2.imwrite(filename, im_color)
-            filename = os.path.join(self.output_dir, '%06d-label.jpg' % self.counter)
-            cv2.imwrite(filename, im_label[:, :, (2, 1, 0)])
-            filename = os.path.join(self.output_dir, '%06d-label-refined.jpg' % self.counter)
-            cv2.imwrite(filename, im_label_refined[:, :, (2, 1, 0)])
-            self.counter += 1
-            sys.exit(1)
+            depth_img[np.isnan(depth_img)] = 0
+            depth_img = depth_img * 1000
+            depth_img = depth_img.astype(np.uint16)
+            try:
+                result = {'rgb': im_color, 'labels': label, 'labels_refined': label_refined, 'depth_img_mm': depth_img, 'depth_xyz': depth_blob}
+                filename = os.path.join(self.output_dir, '%06d.mat' % self.counter)
+                print(filename)
+                scipy.io.savemat(filename, result, do_compression=True)
+                filename = os.path.join(self.output_dir, '%06d-color.png' % self.counter)
+                cv2.imwrite(filename, im_color)
+                filename = os.path.join(self.output_dir, '%06d-depth.png' % self.counter)
+                cv2.imwrite(filename, depth_img)
+                filename = os.path.join(self.output_dir, '%06d-label.png' % self.counter)
+                cv2.imwrite(filename, im_label[:, :, (2, 1, 0)])
+                filename = os.path.join(self.output_dir, '%06d-label-refined.png' % self.counter)
+                cv2.imwrite(filename, im_label_refined[:, :, (2, 1, 0)])
+                self.counter += 1
+            except:
+                pass
+            
+            # sys.exit(1)
 
 
 dirname = os.path.dirname(__file__)
@@ -292,7 +305,11 @@ def parse_args():
                         help='the type of image', default="Realsense", type=str)
     parser.add_argument('--no_refinement', dest='no_refinement',
                         help='do not use refinement',
-                        action='store_true')                                                
+                        action='store_true')         
+    parser.add_argument('--task_name', dest='task_name',
+                    help='task name', default="realworld", type=str)
+    # Add the --save argument as a boolean flag
+    parser.add_argument('--save', action='store_true', help="Save the data")                                     
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -335,6 +352,6 @@ if __name__ == '__main__':
         predictor_crop, cfg_transformer_crop = get_predictor_crop(cfg_file=args.network_crop_cfg_file, weight_path=args.pretrained_crop, input_image=args.input_image)
 
     # image listener
-    listener = ImageListener(predictor, predictor_crop, cfg_transformer, cfg_transformer_crop)
+    listener = ImageListener(predictor, predictor_crop, cfg_transformer, cfg_transformer_crop, task_name=args.task_name, save_data=args.save)
     while not rospy.is_shutdown():
        listener.run_network()

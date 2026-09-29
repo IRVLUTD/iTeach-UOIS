@@ -302,7 +302,7 @@ def main(argv):
         # Remove the extra dimension (from shape (N, 1, H, W) -> (N, H, W))
         masks_squeezed = torch.tensor(masks).squeeze(1)
 
-        # Generate the combined mask after removing the largest object
+        # Combine the per-object masks into one label map (0 = background, 1..N = objects)
         combined_mask = combine_masks(masks_squeezed)
 
         img_pil = PILImg.open(os.path.join(video_dir, filename)).convert("RGB")

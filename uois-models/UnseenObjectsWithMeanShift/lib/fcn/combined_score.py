@@ -1,3 +1,9 @@
+"""Combined UOIS score = 0.4 * Objects F + 0.4 * Boundary F + 0.2 * (fraction of objects detected at 0.75).
+
+Usage: python combined_score.py <results.json> [<results.json> ...]
+Accepts the flat results.json written by iteach_test_dataset.py (HumanPlay test set)
+and the nested {"<dataset>": {"results": {...}}} format.
+"""
 import os
 import json
 import sys
@@ -19,7 +25,14 @@ for json_file in sys.argv[1:]:
         data = json.load(f)
 
     model_name = data.get("model", os.path.splitext(os.path.basename(json_file))[0])
-    results_key = "results_refined" if "results_refined" in next(iter(data.values()), {}) else "results"
+    # iteach_test_dataset.py / iteach_get_results_all_models.py write a flat dict of
+    # metrics for the HumanPlay test set; treat that as the 'iteach-uois' entry.
+    if "Objects F-measure" in data:
+        data = {"iteach-uois": {"results": data}}
+        if model_name == "results":  # MSMFormer/<out_dir>/model_results/results.json
+            model_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(json_file))))
+    first = next((v for v in data.values() if isinstance(v, dict)), {})
+    results_key = "results_refined" if "results_refined" in first else "results"
 
     for dataset in datasets:
         if dataset not in data or results_key not in data[dataset]:
@@ -39,4 +52,5 @@ for dataset in datasets:
     print(f"\n{dataset.upper()}:")
     top_models = sorted(scores_by_dataset[dataset], key=lambda x: x[1], reverse=True)[:5]
     for rank, (name, score) in enumerate(top_models, 1):
-        print(f"  {rank}. {name} – {score:.2f}")
+        # metrics are fractions in [0, 1]; x100 matches the tables made by j2trex.py
+        print(f"  {rank}. {name} – {score:.4f} ({100 * score:.1f})")

@@ -136,7 +136,31 @@ DATA/
 ```
 
 > [!IMPORTANT]
-> The HumanPlay folders must be named **`training_set/`** and **`test_set/`**, with scene folders named **`scene*`**.
+> The HumanPlay loader reads **`training_set/scene*/`** and **`test_set/scene*/`**, and each scene needs **`rgb/`**, **`depth/`** and **`gt_masks/`** with identical file names.
+> The loader finds each mask and depth image by replacing `rgb` in the image's **full path**. Keep the substring `rgb` out of every other folder name on that path (e.g. not `/home/me/rgbd_work/…`).
+
+**What each iTeach-HumanPlay download contains:**
+
+| Download | Unzips to | Scenes | `gt_masks/` |
+|:--|:--|:-:|:--|
+| `test_set.zip` | `test_set/scene47 … scene49` | 3 | ✅ included |
+| `humanplay-d40.zip` | `humanplay-d40/scene1 … scene40` | 40 | ✅ included |
+| `humanplay-d5.zip` | `humanplay-d5/scene_0423T…` | 5 | ⚠️ **not stored in the zip.** The masks are in each scene's `gsam2/masks/` (same file names as `rgb/`); `gt_masks` was a symlink to it |
+
+**Set it up:**
+
+```bash
+cd DATA
+unzip test_set.zip      -d iTeach-HumanPlay     # → iTeach-HumanPlay/test_set/scene47…49
+unzip humanplay-d40.zip -d iTeach-HumanPlay     # → iTeach-HumanPlay/humanplay-d40/scene1…40
+unzip humanplay-d5.zip  -d iTeach-HumanPlay     # → iTeach-HumanPlay/humanplay-d5/scene_0423T…
+
+# D5 only: recreate the gt_masks links the zip does not contain
+for s in iTeach-HumanPlay/humanplay-d5/scene_*; do ln -sfn gsam2/masks "$s/gt_masks"; done
+
+# Choose the training split (switch between D5 and D40 by re-linking)
+ln -sfn humanplay-d40 iTeach-HumanPlay/training_set     # or: ln -sfn humanplay-d5 …
+```
 
 <br>
 
@@ -193,7 +217,7 @@ source ./set_env.sh
 ### 🐳 Option A: Docker (recommended)
 
 > [!TIP]
-> The Docker image has the exact package versions used for the paper, so it is the most reliable way to reproduce the results.
+> The Docker image is the lab's reference environment for the UOIS models.
 
 ```bash
 cd docker
@@ -204,9 +228,9 @@ cd docker
 |:--|:--|
 | **Image** | [`irvlutd/iteach:uois-peft`](https://hub.docker.com/r/irvlutd/iteach) (~32 GB) |
 | **Needs** | NVIDIA GPU + [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) |
-| **Conda envs** (Python 3.8) | `msm38` → `/opt/conda/envs/msm38` · `ucn38` → `/opt/conda/envs/ucn38` |
+| **Conda envs** | `msm38` and `ucn38` (Python 3.8) for MSMFormer and UCN. The image's last layer is labelled `msm39-peft-lora`; run `conda env list` inside the container to see what is there |
 
-<sub>The Dockerfile for `irvlutd/iteach:uois-peft` is not in this repository. The published image is the reference environment.</sub>
+<sub>**No Dockerfile exists for this image.** Its final layers were created with `docker commit` on top of a BundleSDF-based image (layer notes: *"iteach-uois docker image with msmformer and ucn setup"*, then *"msm39-peft-lora"*). The published image itself is the reference.</sub>
 
 <br>
 
@@ -266,7 +290,7 @@ scene_XXX/
 ## 🎭 Generating ground-truth masks for new HumanPlay scenes
 
 > [!NOTE]
-> The released datasets **already include `gt_masks/`**. You only need this section for scenes you capture yourself.
+> The released D40 and Test sets include `gt_masks/`, and D5 includes the masks in `gsam2/masks/` (see [Datasets](#-datasets) for the one-line link). You only need this section for scenes you capture yourself.
 
 <p align="center">
   <img src="media/sam2-mask-prop.webp" width="85%" alt="SAM2 label propagation">
@@ -346,7 +370,7 @@ python iteach_train_net_pretrained.py --num-gpus 1 --dist-url tcp://127.0.0.1:12
     --out_dir test_experiment
 ```
 
-Checkpoints and `config.yaml` are saved to `uois-models/UnseenObjectsWithMeanShift/MSMFormer/<out_dir>/`.
+Checkpoints and `config.yaml` are saved to `uois-models/UnseenObjectsWithMeanShift/MSMFormer/<out_dir>/`. To serve the trained model on the robot, see [Live ROS node](#-live-ros-node-on-the-robot); to score it, see [Evaluation](#-evaluation).
 
 > [!TIP]
 > **LoRA:** add `--use_lora` to `iteach_train_net_pretrained.py` to fine-tune with LoRA adapters (needs `pip install peft`). In the original experiments, RGB-D + LoRA failed with a package error.
@@ -382,18 +406,27 @@ Checkpoints and `config.yaml` are saved to `uois-models/UnseenObjectsWithMeanShi
 
 During an iTeach session, MSMFormer runs on the laptop as a **ROS node**. It subscribes to the Fetch RGB-D topics and publishes predictions (`/seg_image_refined`, `/seg_image`, `/seg_label`, …), which the HoloLens displays via [iTeachSkillsApp](https://github.com/IRVLUTD/iTeachSkillsApp#-running-the-live-system-on-the-robot).
 
+> [!IMPORTANT]
+> **Environment:** besides the MSMFormer dependencies, the node imports ROS Python packages: `rospy`, `tf`, `message_filters` and `ros_numpy`. The environment you run it in must provide them. In the lab this node ran on the laptop in a local conda env named `msm39`. The Docker image's contents don't record whether ROS is installed, so check with `python -c "import rospy, tf, message_filters, ros_numpy"` first.
+
 ```bash
 # The laptop is a ROS client of the robot:
 #   ROS_MASTER_URI=http://<robot-ip>:11311   ROS_HOSTNAME=<laptop-ip>
 cd $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift
+
+# Pretrained MSMFormer (default)
 ./experiments/scripts/ros_seg_transformer_test_segmentation_fetch.sh <gpu_id> <task_name> [--save]
+
+# A model you fine-tuned with --out_dir <out_dir> (see Training)
+MODEL=MSMFormer/<out_dir>/model_final.pth MODEL_CFG=MSMFormer/<out_dir>/config.yaml \
+  ./experiments/scripts/ros_seg_transformer_test_segmentation_fetch.sh <gpu_id> <task_name> [--save]
 ```
 
-| Option | Effect |
+| Setting | Effect |
 |:--|:--|
 | `--save` | Also write frames and predictions to `output/<task_name>/` |
-| `f0` block (default) | Pretrained MSMFormer |
-| `f1` / `f2` blocks | Models fine-tuned after each iTeach round (`new_ckpts/f*/model_final.pth`) |
+| `MODEL`, `MODEL_CFG` | Checkpoint and its network config. Default: `data/checkpoints/rgbd_pretrain/norm_RGBD_pretrained.pth` + `MSMFormer/configs/mixture_UCN.yaml`. For a fine-tuned run, use its `model_final.pth` + `config.yaml`, the same pairing `lib/fcn/iteach_test_dataset.py` evaluates |
+| `f1` / `f2` blocks (commented out) | The lab's original per-round entries (`new_ckpts/f*/model_final.pth`), kept for reference |
 
 <br>
 
@@ -425,7 +458,7 @@ flowchart LR
 
 | # | Component | Repo | Run |
 |:-:|:--|:--|:--|
-| 1 | **Segmentation** | this repo | `./experiments/scripts/ros_seg_transformer_test_segmentation_fetch.sh <gpu_id> <task_name>` ([Live ROS node](#-live-ros-node-on-the-robot); pick the `f*` block with your fine-tuned checkpoint) |
+| 1 | **Segmentation** | this repo | `./experiments/scripts/ros_seg_transformer_test_segmentation_fetch.sh <gpu_id> <task_name>` ([Live ROS node](#-live-ros-node-on-the-robot); set `MODEL` / `MODEL_CFG` to your fine-tuned run) |
 | 2 | **Grasp proposals**: Contact-GraspNet | [IRVLUTD/contact_graspnet](https://github.com/IRVLUTD/contact_graspnet) (**`ros` branch**, `contact_graspnet` conda env) | `./run_ros_fetch_experiment.sh` |
 | 3 | **Motion planning**: GTO | [IRVLUTD/GraspTrajOpt](https://github.com/IRVLUTD/GraspTrajOpt) | [Running with real robots](https://github.com/IRVLUTD/GraspTrajOpt?tab=readme-ov-file#running-with-real-robots) |
 | 4 | **Benchmark driver** | [IRVLUTD/SceneReplica](https://github.com/IRVLUTD/SceneReplica) | `cd src && python bench_6dof_segmentation_grasping.py --seg_method msmformer --grasp_method contact_gnet --obj_order nearest_first --scene_idx <id>` |
@@ -460,7 +493,14 @@ The **combined score** (`lib/fcn/combined_score.py`):
 \text{combined} = 0.4 \cdot F_{\text{objects}} + 0.4 \cdot F_{\text{boundary}} + 0.2 \cdot \text{Det}_{@0.75}
 ```
 
-<sub>where Det@0.75 is the percentage of objects detected at 0.75 overlap.</sub>
+<sub>where Det@0.75 is the fraction of ground-truth objects detected at 0.75 overlap. All three metrics are fractions in [0, 1]; ×100 gives the percentage scale used by the lab's table script `lib/fcn/j2trex.py`.</sub>
+
+```bash
+cd $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/lib/fcn
+python combined_score.py ../../MSMFormer/<out_dir>/model_results/results.json [more results.json …]
+# ITEACH-UOIS:
+#   1. <out_dir> – 0.xxxx (xx.x)
+```
 
 > [!NOTE]
 > **Reference result (paper):** iTeach fine-tuning lifts the UOIS combined score from **26.1 → 80.7** (**+54.6**, **3.1×**). Downstream on SceneReplica, grasping success goes **71 → 74** and pick & place **65 → 72** (out of 100).

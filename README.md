@@ -74,8 +74,9 @@ flowchart LR
 <a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><img src="media/toc/05.svg" width="49%" alt="05 · Ground-Truth Masks: Turn a new capture into labels with SAM2"></a>
 <a href="#️-msmformer-training"><img src="media/toc/06.svg" width="49%" alt="06 · Training: Fine-tune MSMFormer: RGB, RGB-D, LoRA"></a>
 <a href="#-live-ros-node-on-the-robot"><img src="media/toc/07.svg" width="49%" alt="07 · Live ROS Node: Serve predictions to the HoloLens"></a>
-<a href="#-evaluation"><img src="media/toc/08.svg" width="49%" alt="08 · Evaluation: Score a model on the HumanPlay test set"></a>
-<a href="#-known-error-fixes"><img src="media/toc/09.svg" width="49%" alt="09 · Troubleshooting: Fixes for common install and runtime errors"></a>
+<a href="#-grasping--pick-and-place-scenereplica"><img src="media/toc/08.svg" width="49%" alt="08 · Grasping · Pick &amp; Place: SceneReplica with Contact-GraspNet and GTO"></a>
+<a href="#-evaluation"><img src="media/toc/09.svg" width="49%" alt="09 · Evaluation: Score a model on the HumanPlay test set"></a>
+<a href="#-known-error-fixes"><img src="media/toc/10.svg" width="49%" alt="10 · Troubleshooting: Fixes for common install and runtime errors"></a>
 <a href="#-built-on"><img src="media/toc/more.svg" width="49%" alt="✦ · Credits · License · Cite: Built on, license, citation, contact, thanks"></a>
 </p>
 
@@ -96,6 +97,7 @@ flowchart LR
   <li><a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><b>Ground-Truth Masks</b></a> · Turn a new capture into labels with SAM2</li>
   <li><a href="#️-msmformer-training"><b>Training</b></a> · Fine-tune MSMFormer: RGB, RGB-D, LoRA</li>
   <li><a href="#-live-ros-node-on-the-robot"><b>Live ROS Node</b></a> · Serve predictions to the HoloLens</li>
+  <li><a href="#-grasping--pick-and-place-scenereplica"><b>Grasping · Pick & Place</b></a> · SceneReplica with Contact-GraspNet and GTO</li>
   <li><a href="#-evaluation"><b>Evaluation</b></a> · Score a model on the HumanPlay test set</li>
   <li><a href="#-known-error-fixes"><b>Troubleshooting</b></a> · Fixes for common install and runtime errors</li>
   <li><a href="#-built-on">Built On</a> · <a href="#-license">License</a> · <a href="#-citation">Citation</a> · <a href="#-contact">Contact</a> · <a href="#-acknowledgements">Thanks</a></li>
@@ -409,6 +411,35 @@ cd $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift
 
 <br>
 
+## 🦾 Grasping & Pick-and-Place (SceneReplica)
+
+The manipulation results use the model-free grasping pipeline from [**SceneReplica**](https://github.com/IRVLUTD/SceneReplica) ([project page](https://irvlutd.github.io/SceneReplica/)). Only the segmentation stage is swapped: iTeach-UOIS's fine-tuned MSMFormer replaces the pretrained one, and everything downstream stays the same.
+
+```mermaid
+flowchart LR
+    A["🤖 Fetch RGB-D"] --> B["🧠 iTeach-UOIS<br/>MSMFormer node"]
+    B -- "segmentation" --> C["✋ Contact-GraspNet<br/>6-DoF grasps"]
+    C -- "grasp poses" --> D["🛤️ GTO<br/>trajectory optimisation"]
+    D --> E["🦾 Grasp / pick & place"]
+```
+
+| # | Component | Repo | Run |
+|:-:|:--|:--|:--|
+| 1 | **Segmentation** | this repo | `./experiments/scripts/ros_seg_transformer_test_segmentation_fetch.sh <gpu_id> <task_name>` ([Live ROS node](#-live-ros-node-on-the-robot); pick the `f*` block with your fine-tuned checkpoint) |
+| 2 | **Grasp proposals**: Contact-GraspNet | [IRVLUTD/contact_graspnet](https://github.com/IRVLUTD/contact_graspnet) (**`ros` branch**, `contact_graspnet` conda env) | `./run_ros_fetch_experiment.sh` |
+| 3 | **Motion planning**: GTO | [IRVLUTD/GraspTrajOpt](https://github.com/IRVLUTD/GraspTrajOpt) | [Running with real robots](https://github.com/IRVLUTD/GraspTrajOpt?tab=readme-ov-file#running-with-real-robots) |
+| 4 | **Benchmark driver** | [IRVLUTD/SceneReplica](https://github.com/IRVLUTD/SceneReplica) | `cd src && python bench_6dof_segmentation_grasping.py --seg_method msmformer --grasp_method contact_gnet --obj_order nearest_first --scene_idx <id>` |
+
+<sub>Set-up of each component (environments, scenes, robot bring-up) follows its own README; see SceneReplica's <a href="https://github.com/IRVLUTD/SceneReplica#model-free-grasping">Model Free Grasping</a> section.</sub>
+
+<br>
+
+<div align="right"><sub><a href="#-contents">⬆ back to contents</a></sub></div>
+
+---
+
+<br>
+
 ## 📊 Evaluation
 
 Evaluate a fine-tuned model (`MSMFormer/<out_dir>/model_final.pth`) on the HumanPlay test set (`data/humanplay_data/test_set`):
@@ -464,6 +495,7 @@ The **combined score** (`lib/fcn/combined_score.py`):
 - [Self-Supervised-UOIS](https://github.com/IRVLUTD/UnseenObjectsWithMeanShift?tab=readme-ov-file#self-supervised-unseen-object-instance-segmentation-via-long-term-robot-interaction)
 - [Robokit](https://github.com/jishnujayakumar/robokit)
 - [SAM2](https://github.com/facebookresearch/sam2)
+- [SceneReplica](https://github.com/IRVLUTD/SceneReplica): grasping and pick-and-place benchmark, with [Contact-GraspNet](https://github.com/IRVLUTD/contact_graspnet) and [GTO](https://github.com/IRVLUTD/GraspTrajOpt)
 
 <sub>[UCN](https://github.com/NVlabs/UnseenObjectClustering) is included under `uois-models/` but was not used in this work. It is kept for possible baseline comparisons or extensions.</sub>
 

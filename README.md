@@ -66,17 +66,26 @@ flowchart LR
 ## 📑 Contents
 
 <table>
-  <tr><th width="4%">#</th><th width="34%">Section</th><th>Go here to…</th></tr>
-  <tr><td align="center">1</td><td><a href="#-datasets"><b>📦 Datasets</b></a></td><td>Download the datasets and see where to put them</td></tr>
-  <tr><td align="center">2</td><td><a href="#-checkpoints"><b>🔑 Checkpoints</b></a></td><td>Get pretrained and iTeach fine-tuned weights</td></tr>
-  <tr><td align="center">3</td><td><a href="#️-setup"><b>⚙️ Setup</b></a></td><td>Install everything<br><small>↳ <a href="#-option-a-docker-recommended">Docker</a> · <a href="#-option-b-local-install">Local install</a></small></td></tr>
-  <tr><td align="center">4</td><td><a href="#️-iteach-humanplay-data-layout"><b>🗂️ iTeach-HumanPlay Data Layout</b></a></td><td>Check what every scene folder must contain</td></tr>
-  <tr><td align="center">5</td><td><a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><b>🎭 Generating ground-truth masks for new HumanPlay scenes</b></a></td><td>Turn a new capture into training labels with SAM2</td></tr>
-  <tr><td align="center">6</td><td><a href="#️-msmformer-training"><b>🏋️ MSMFormer Training</b></a></td><td>Fine-tune MSMFormer (RGB, RGB-D, LoRA) and run the demo</td></tr>
-  <tr><td align="center">7</td><td><a href="#-live-ros-node-on-the-robot"><b>🤖 Live ROS node on the robot</b></a></td><td>Serve predictions to the HoloLens during a session</td></tr>
-  <tr><td align="center">8</td><td><a href="#-evaluation"><b>📊 Evaluation</b></a></td><td>Score a model on the HumanPlay test set</td></tr>
-  <tr><td align="center">9</td><td><a href="#-known-error-fixes"><b>🐛 Known Error Fixes</b></a></td><td>Fix common install and runtime errors</td></tr>
-  <tr><td align="center">·</td><td colspan="2"><a href="#-built-on">🙌 Built On</a> · <a href="#-citation">📚 Citation</a> · <a href="#-contact">📬 Contact</a> · <a href="#-acknowledgements">🙏 Acknowledgements</a></td></tr>
+<tr>
+<td width="50%" valign="top"><kbd>01</kbd> <small>🧰 Set up</small><br><br><b>📦 <a href="#-datasets">Datasets</a></b><br><small>Download the data and see where it goes</small></td>
+<td width="50%" valign="top"><kbd>02</kbd> <small>🧰 Set up</small><br><br><b>🔑 <a href="#-checkpoints">Checkpoints</a></b><br><small>Pretrained and iTeach fine-tuned weights</small></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><kbd>03</kbd> <small>🧰 Set up</small><br><br><b>⚙️ <a href="#️-setup">Setup</a></b><br><small>Install with Docker or locally</small><br><small>↳ <a href="#-option-a-docker-recommended">Docker</a> · <a href="#-option-b-local-install">Local</a></small></td>
+<td width="50%" valign="top"><kbd>04</kbd> <small>📖 Reference</small><br><br><b>🗂️ <a href="#️-iteach-humanplay-data-layout">Data Layout</a></b><br><small>What every scene folder must contain</small></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><kbd>05</kbd> <small>▶️ Run</small><br><br><b>🎭 <a href="#-generating-ground-truth-masks-for-new-humanplay-scenes">Ground-Truth Masks</a></b><br><small>Turn a new capture into training labels with SAM2</small></td>
+<td width="50%" valign="top"><kbd>06</kbd> <small>▶️ Run</small><br><br><b>🏋️ <a href="#️-msmformer-training">Training</a></b><br><small>Fine-tune MSMFormer: RGB, RGB-D, LoRA</small></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><kbd>07</kbd> <small>▶️ Run</small><br><br><b>🤖 <a href="#-live-ros-node-on-the-robot">Live ROS Node</a></b><br><small>Serve predictions to the HoloLens during a session</small></td>
+<td width="50%" valign="top"><kbd>08</kbd> <small>▶️ Run</small><br><br><b>📊 <a href="#-evaluation">Evaluation</a></b><br><small>Score a model on the HumanPlay test set</small></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><kbd>09</kbd> <small>📖 Reference</small><br><br><b>🐛 <a href="#-known-error-fixes">Troubleshooting</a></b><br><small>Fixes for common install and runtime errors</small></td>
+<td width="50%" valign="top"><kbd>✦</kbd> <small>📚 MORE</small><br><br><b>🙌 <a href="#-built-on">Built On</a> · 📚 <a href="#-citation">Citation</a> · 📬 <a href="#-contact">Contact</a> · 🙏 <a href="#-acknowledgements">Acknowledgements</a></b><br><small>How to cite iTeach, and how to reach us</small></td>
+</tr>
 </table>
 
 <br>

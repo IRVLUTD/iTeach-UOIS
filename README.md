@@ -416,6 +416,9 @@ The **combined score** (`lib/fcn/combined_score.py`):
 
 <sub>where Det@0.75 is the percentage of objects detected at 0.75 overlap.</sub>
 
+> [!NOTE]
+> **Reference result (paper):** iTeach fine-tuning lifts the UOIS combined score from **26.1 → 80.7** (**+54.6**, **3.1×**). Downstream on SceneReplica, grasping success goes **71 → 74** and pick & place **65 → 72** (out of 100).
+
 <br>
 
 <div align="right"><sub><a href="#-contents">⬆ back to contents</a></sub></div>

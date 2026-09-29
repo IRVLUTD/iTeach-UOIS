@@ -113,12 +113,12 @@ flowchart LR
 
 ## 📦 Datasets
 
-| Dataset | Link |
-|:--|:--|
-| **All UOIS datasets** (TOD, OCID, OSD, RobotPushing, iTeach-HumanPlay) | [Download](https://utdallas.box.com/v/uois-datasets) |
-| iTeach-HumanPlay **D5** · 5 controlled scenes | [Download](https://utdallas.box.com/v/iTeach-HumanPlay-D5) |
-| iTeach-HumanPlay **D40** · 40 scenes | [Download](https://utdallas.box.com/v/iTeach-HumanPlay-D40) |
-| iTeach-HumanPlay **Test** · 902 samples, 3 held-out scenes | [Download](https://utdallas.box.com/v/iTeach-HumanPlay-Test) |
+| Dataset | Scenes | `gt_masks/` | Link |
+|:--|:-:|:--|:-:|
+| **All UOIS datasets** (TOD, OCID, OSD, RobotPushing, iTeach-HumanPlay) | – | – | [Download](https://utdallas.box.com/v/uois-datasets) |
+| iTeach-HumanPlay **D5** · controlled scenes | 5 | ⚠️ recreate (below) | [Download](https://utdallas.box.com/v/iTeach-HumanPlay-D5) |
+| iTeach-HumanPlay **D40** | 40 | ✅ included | [Download](https://utdallas.box.com/v/iTeach-HumanPlay-D40) |
+| iTeach-HumanPlay **Test** · 902 samples, held-out | 3 | ✅ included | [Download](https://utdallas.box.com/v/iTeach-HumanPlay-Test) |
 
 <br>
 
@@ -139,13 +139,8 @@ DATA/
 > The HumanPlay loader reads **`training_set/scene*/`** and **`test_set/scene*/`**, and each scene needs **`rgb/`**, **`depth/`** and **`gt_masks/`** with identical file names.
 > The loader finds each mask and depth image by replacing `rgb` in the image's **full path**. Keep the substring `rgb` out of every other folder name on that path (e.g. not `/home/me/rgbd_work/…`).
 
-**What each iTeach-HumanPlay download contains:**
-
-| Download | Unzips to | Scenes | `gt_masks/` |
-|:--|:--|:-:|:--|
-| `test_set.zip` | `test_set/scene47 … scene49` | 3 | ✅ included |
-| `humanplay-d40.zip` | `humanplay-d40/scene1 … scene40` | 40 | ✅ included |
-| `humanplay-d5.zip` | `humanplay-d5/scene_0423T…` | 5 | ⚠️ **not stored in the zip.** The masks are in each scene's `gsam2/masks/` (same file names as `rgb/`); `gt_masks` was a symlink to it |
+> [!WARNING]
+> **D5 has no `gt_masks/` folder in the zip.** Its masks are in each scene's `gsam2/masks/` (same file names as `rgb/`); `gt_masks` was a symlink the zip didn't keep. The setup below recreates it in one line.
 
 **Set it up:**
 
@@ -473,12 +468,26 @@ flowchart LR
     D --> E["🦾 Grasp / pick & place"]
 ```
 
-| # | Component | Repo | Run |
-|:-:|:--|:--|:--|
-| 1 | **Segmentation** | this repo | `./experiments/scripts/ros_seg_transformer_test_segmentation_fetch.sh <gpu_id> <task_name>` ([Live ROS node](#-live-ros-node-on-the-robot); set `MODEL` / `MODEL_CFG` to your fine-tuned run) |
-| 2 | **Grasp proposals**: Contact-GraspNet | [IRVLUTD/contact_graspnet](https://github.com/IRVLUTD/contact_graspnet) (**`ros` branch**, `contact_graspnet` conda env) | `./run_ros_fetch_experiment.sh` |
-| 3 | **Motion planning**: GTO | [IRVLUTD/GraspTrajOpt](https://github.com/IRVLUTD/GraspTrajOpt) | [Running with real robots](https://github.com/IRVLUTD/GraspTrajOpt?tab=readme-ov-file#running-with-real-robots) |
-| 4 | **Benchmark driver** | [IRVLUTD/SceneReplica](https://github.com/IRVLUTD/SceneReplica) | `cd src && python bench_6dof_segmentation_grasping.py --seg_method msmformer --grasp_method contact_gnet --obj_order nearest_first --scene_idx <id>` |
+| # | Component | Repo |
+|:-:|:--|:--|
+| **1** | 🧠 Segmentation: iTeach-UOIS MSMFormer node | this repo ([Live ROS node](#-live-ros-node-on-the-robot)) |
+| **2** | ✋ Grasp proposals: Contact-GraspNet | [IRVLUTD/contact_graspnet](https://github.com/IRVLUTD/contact_graspnet), **`ros` branch**, `contact_graspnet` conda env |
+| **3** | 🛤️ Motion planning: GTO | [IRVLUTD/GraspTrajOpt](https://github.com/IRVLUTD/GraspTrajOpt): [running with real robots](https://github.com/IRVLUTD/GraspTrajOpt?tab=readme-ov-file#running-with-real-robots) |
+| **4** | 🦾 Benchmark driver | [IRVLUTD/SceneReplica](https://github.com/IRVLUTD/SceneReplica) |
+
+```bash
+# 1 · segmentation (this repo; set MODEL / MODEL_CFG for a fine-tuned run)
+./experiments/scripts/ros_seg_transformer_test_segmentation_fetch.sh <gpu_id> <task_name>
+
+# 2 · grasp proposals (contact_graspnet, ros branch)
+./run_ros_fetch_experiment.sh
+
+# 3 · motion planning: follow GraspTrajOpt's "running with real robots"
+
+# 4 · benchmark driver (SceneReplica)
+cd src && python bench_6dof_segmentation_grasping.py \
+  --seg_method msmformer --grasp_method contact_gnet --obj_order nearest_first --scene_idx <id>
+```
 
 <sub>Set-up of each component (environments, scenes, robot bring-up) follows its own README; see SceneReplica's <a href="https://github.com/IRVLUTD/SceneReplica#model-free-grasping">Model Free Grasping</a> section.</sub>
 

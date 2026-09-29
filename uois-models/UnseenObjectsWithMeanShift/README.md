@@ -94,7 +94,7 @@ Then move the checkpoint files into $ROOT/data/checkpoints.
 - Download our fine-tuned checkpoints from [here](https://utdallas.box.com/s/vzp8nmalowg4i58y8b9sghv5s7f36xpz) (No login needed). The model is finetuned by [a dataset from robot interaction](https://utdallas.app.box.com/s/yipcemru6qsbw0wj1nsdxq1dw5mjbtiq).
 
 ### Training on the Tabletop Object Dataset (TOD)
-1. Download the Tabletop Object Dataset (TOD) from [here](https://drive.google.com/uc?export=download&id=1Du309Ye8J7v2c4fFGuyPGjf-C3-623vw) (34G).
+1. Download the Tabletop Object Dataset (TOD) from [here](https://utdallas.box.com/v/uois-datasets) (34G; `tabletop_dataset_v5_public` in the UOIS datasets bundle).
 
 2. Create a symlink for the TOD dataset
     ```Shell

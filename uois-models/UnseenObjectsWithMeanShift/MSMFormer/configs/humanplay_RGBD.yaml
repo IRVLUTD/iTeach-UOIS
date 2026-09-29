@@ -27,7 +27,7 @@ MODEL:
   # WEIGHTS: "/home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/iteach-finetune-s35.20/model_final.pth" # f1
   
   # WEIGHTS: "/home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/iteach-uois.latest.s1/model_0000499.pth" # f1
-  WEIGHTS: "/home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/iteach-uois.latest.s4/model_0000499.pth" # f1
+  # WEIGHTS: "/home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/iteach-uois.latest.s4/model_0000499.pth" # f1  (lab-local path; leave commented so WEIGHTS above is used)
   
   # WEIGHTS: "/home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/iteach-research.s3/model_0001749.pth" # f1
   # WEIGHTS: "/home/jishnu/Projects/iTeach-UOIS/uois-models/UnseenObjectsWithMeanShift/MSMFormer/iteach-research.s6/model_0001999.pth" # f1

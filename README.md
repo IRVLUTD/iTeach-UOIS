@@ -245,10 +245,13 @@ cd docker
 
 You need two environments:
 
-**1. MSMFormer**
-- Python 3.8, a CUDA build of PyTorch, and [detectron2](https://detectron2.readthedocs.io/en/latest/tutorials/install.html) built for that same PyTorch/CUDA version
-- `pip install -r uois-models/UnseenObjectsWithMeanShift/requirement.txt`
-- Compile the MSDeformAttn op: `cd uois-models/UnseenObjectsWithMeanShift/MSMFormer/meanshiftformer/modeling/pixel_decoder/ops && sh make.sh`
+**1. MSMFormer** (lab-tested: conda env `msm39`, Python 3.9, torch 1.10 + CUDA 11.1, detectron2 0.6)
+```bash
+conda create -n msm39 python=3.9.21 && conda activate msm39
+pip install -r uois-models/UnseenObjectsWithMeanShift/requirements-lab-msm39.txt   # exact versions of the lab env
+cd uois-models/UnseenObjectsWithMeanShift/MSMFormer/meanshiftformer/modeling/pixel_decoder/ops && sh make.sh   # MSDeformAttn op
+```
+- For the [live ROS node](#-live-ros-node-on-the-robot), also install system ROS Noetic and `source /opt/ros/noetic/setup.bash`.
 - `pip install peft` if you want `--use_lora`
 - More details: [MSMFormer README](uois-models/UnseenObjectsWithMeanShift/README.md)
 
@@ -363,6 +366,13 @@ Look through `gsam2/rgb_and_mask/` before training. 👀
 
 **2. Train.**
 
+> [!IMPORTANT]
+> `humanplay_RGBD.yaml` trains on **`mixture_object_train`**, which mixes the **Tabletop Object Dataset (TOD)** with iTeach-HumanPlay. So RGB-D fine-tuning needs **TOD** in `DATA/tabletop_dataset_v5_public/` (34 GB, from the [UOIS datasets](#-datasets) link) as well as HumanPlay.
+>
+> **GPU memory:** at `IMS_PER_BATCH: 1`, RGB-D fine-tuning ran out of memory on a 16 GB GPU (RTX 4090 Laptop; about 13.5 GB allocated when it failed). Use a GPU with more memory. Serving the live node plus SAM2 labelling fits in 16 GB (peak ≈ 13.7 GB measured).
+>
+> **PyTorch 1.10 + setuptools:** training imports PyTorch's TensorBoard writer, which fails with `module 'distutils' has no attribute 'version'` on newer setuptools. Install `setuptools==59.5.0` in the training env (see [Known error fixes](#-known-error-fixes)).
+
 ```bash
 cd $ROOT_DIR/uois-models/UnseenObjectsWithMeanShift/MSMFormer
 
@@ -414,7 +424,7 @@ Checkpoints and `config.yaml` are saved to `uois-models/UnseenObjectsWithMeanShi
 During an iTeach session, MSMFormer runs on the laptop as a **ROS node**. It subscribes to the Fetch RGB-D topics and publishes predictions (`/seg_image_refined`, `/seg_image`, `/seg_label`, …), which the HoloLens displays via [iTeachSkillsApp](https://github.com/IRVLUTD/iTeachSkillsApp#-running-the-live-system-on-the-robot).
 
 > [!IMPORTANT]
-> **Environment:** besides the MSMFormer dependencies, the node imports ROS Python packages: `rospy`, `tf`, `message_filters` and `ros_numpy`. The environment you run it in must provide them. In the lab this node ran on the laptop in a local conda env named `msm39`. The Docker image's contents don't record whether ROS is installed, so check with `python -c "import rospy, tf, message_filters, ros_numpy"` first.
+> **Environment:** besides the MSMFormer dependencies, the node imports ROS Python packages: `rospy`, `tf`, `message_filters` and `ros_numpy`. In the lab it runs in the `msm39` env ([Local install](#-option-b-local-install)) with system ROS Noetic sourced; `ros_numpy` comes from the requirements file. The Docker image's contents don't record whether ROS is installed, so check with `python -c "import rospy, tf, message_filters, ros_numpy"` first.
 
 ```bash
 # The laptop is a ROS client of the robot:

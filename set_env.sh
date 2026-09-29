@@ -22,6 +22,9 @@ export DATA_DIR="$ROOT_DIR/DATA"
 # All links below use `ln -sfn`, so re-sourcing this script is safe.
 link() { ln -sfn "$1" "$2"; }
 
+# data/ is not tracked in git, so create it on a fresh clone
+mkdir -p "$UCN_DATA_DIR" "$MSM_DATA_DIR"
+
 # Create symlinks for checkpoints
 link "$ROOT_DIR/ckpts/checkpoints" "$UCN_DATA_DIR/checkpoints"
 link "$ROOT_DIR/ckpts/checkpoints" "$MSM_DATA_DIR/checkpoints"

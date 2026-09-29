@@ -1,4 +1,8 @@
-data*
+# Only the top-level data/ (set_env.sh links, checkpoints). 'data*' used to
+# also hide the source package MSMFormer/meanshiftformer/data/.
+/data/*
+!/data/demo/
+!/data/pics/
 
 */output*
 *.jpg

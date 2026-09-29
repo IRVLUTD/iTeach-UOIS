@@ -8,6 +8,7 @@
 
 [![Project Page](https://img.shields.io/badge/Project-Page-2ea44f?style=for-the-badge)](https://irvlutd.github.io/iTeach/)
 [![arXiv](https://img.shields.io/badge/arXiv-2410.09072-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2410.09072)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-irvlutd%2Fiteach-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/irvlutd/iteach)
 
 ![Python](https://img.shields.io/badge/Python-3.8-3776AB?logo=python&logoColor=white)
@@ -75,7 +76,7 @@ flowchart LR
 <a href="#-live-ros-node-on-the-robot"><img src="media/toc/07.svg" width="49%" alt="07 · Live ROS Node: Serve predictions to the HoloLens"></a>
 <a href="#-evaluation"><img src="media/toc/08.svg" width="49%" alt="08 · Evaluation: Score a model on the HumanPlay test set"></a>
 <a href="#-known-error-fixes"><img src="media/toc/09.svg" width="49%" alt="09 · Troubleshooting: Fixes for common install and runtime errors"></a>
-<a href="#-built-on"><img src="media/toc/more.svg" width="49%" alt="✦ · Credits · Cite · Contact: Built on, citation, contact, thanks"></a>
+<a href="#-built-on"><img src="media/toc/more.svg" width="49%" alt="✦ · Credits · License · Cite: Built on, license, citation, contact, thanks"></a>
 </p>
 
 <details>
@@ -97,7 +98,7 @@ flowchart LR
   <li><a href="#-live-ros-node-on-the-robot"><b>Live ROS Node</b></a> · Serve predictions to the HoloLens</li>
   <li><a href="#-evaluation"><b>Evaluation</b></a> · Score a model on the HumanPlay test set</li>
   <li><a href="#-known-error-fixes"><b>Troubleshooting</b></a> · Fixes for common install and runtime errors</li>
-  <li><a href="#-built-on">Built On</a> · <a href="#-citation">Citation</a> · <a href="#-contact">Contact</a> · <a href="#-acknowledgements">Acknowledgements</a></li>
+  <li><a href="#-built-on">Built On</a> · <a href="#-license">License</a> · <a href="#-citation">Citation</a> · <a href="#-contact">Contact</a> · <a href="#-acknowledgements">Thanks</a></li>
 </ol>
 
 </details>
@@ -465,6 +466,14 @@ The **combined score** (`lib/fcn/combined_score.py`):
 - [SAM2](https://github.com/facebookresearch/sam2)
 
 <sub>[UCN](https://github.com/NVlabs/UnseenObjectClustering) is included under `uois-models/` but was not used in this work. It is kept for possible baseline comparisons or extensions.</sub>
+
+<br>
+
+## 📜 License
+
+Released under the [**MIT License**](LICENSE), © 2024-2026 Intelligent Robotics and Vision Lab (IRVL), The University of Texas at Dallas.
+
+<sub>Third-party code keeps its own license: [MSMFormer](uois-models/UnseenObjectsWithMeanShift/LICENSE.md) (MIT), [UCN](uois-models/UnseenObjectClustering/LICENSE.md) (**NVIDIA Source Code License, non-commercial**), and [robokit](robokit/LICENSE) (MIT).</sub>
 
 <br>
 

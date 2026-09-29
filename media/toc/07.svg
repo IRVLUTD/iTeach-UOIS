@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="132" viewBox="0 0 460 132">
+  <defs><clipPath id="card"><rect x="1" y="1" width="458" height="130" rx="14"/></clipPath></defs>
+  <rect x="1" y="1" width="458" height="130" rx="14" fill="#e16f24" fill-opacity="0.06"/>
+  <rect x="0" y="0" width="7" height="132" fill="#e16f24" clip-path="url(#card)"/>
+  <rect x="1" y="1" width="458" height="130" rx="14" fill="none" stroke="#e16f24" stroke-opacity="0.45" stroke-width="1.5"/>
+  <circle cx="52" cy="66" r="26" fill="#e16f24" fill-opacity="0.14" stroke="#e16f24" stroke-width="2"/>
+  <text x="52" y="73" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#e16f24">07</text>
+  <rect x="396.8" y="16" width="47.2" height="22" rx="11" fill="#e16f24" fill-opacity="0.16"/>
+  <text x="420.4" y="31.5" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="0.8" fill="#e16f24">RUN</text>
+  <text x="96" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#e16f24">Live ROS Node</text>
+  <text x="96" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" fill="#768390">Serve predictions to the HoloLens</text>
+  
+</svg>

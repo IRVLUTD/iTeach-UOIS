@@ -66,16 +66,16 @@ flowchart LR
 ## 📑 Contents
 
 <p align="center">
-<a href="#-datasets"><img src="media/toc/01-light.svg#gh-light-mode-only" width="49%" alt="01 · Datasets: Download the data and see where it goes"></a><a href="#-datasets"><img src="media/toc/01-dark.svg#gh-dark-mode-only" width="49%" alt="01 · Datasets: Download the data and see where it goes"></a>
-<a href="#-checkpoints"><img src="media/toc/02-light.svg#gh-light-mode-only" width="49%" alt="02 · Checkpoints: Pretrained and iTeach fine-tuned weights"></a><a href="#-checkpoints"><img src="media/toc/02-dark.svg#gh-dark-mode-only" width="49%" alt="02 · Checkpoints: Pretrained and iTeach fine-tuned weights"></a>
-<a href="#️-setup"><img src="media/toc/03-light.svg#gh-light-mode-only" width="49%" alt="03 · Setup: Install with Docker or locally"></a><a href="#️-setup"><img src="media/toc/03-dark.svg#gh-dark-mode-only" width="49%" alt="03 · Setup: Install with Docker or locally"></a>
-<a href="#️-iteach-humanplay-data-layout"><img src="media/toc/04-light.svg#gh-light-mode-only" width="49%" alt="04 · Data Layout: What every scene folder must contain"></a><a href="#️-iteach-humanplay-data-layout"><img src="media/toc/04-dark.svg#gh-dark-mode-only" width="49%" alt="04 · Data Layout: What every scene folder must contain"></a>
-<a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><img src="media/toc/05-light.svg#gh-light-mode-only" width="49%" alt="05 · Ground-Truth Masks: Turn a new capture into labels with SAM2"></a><a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><img src="media/toc/05-dark.svg#gh-dark-mode-only" width="49%" alt="05 · Ground-Truth Masks: Turn a new capture into labels with SAM2"></a>
-<a href="#️-msmformer-training"><img src="media/toc/06-light.svg#gh-light-mode-only" width="49%" alt="06 · Training: Fine-tune MSMFormer: RGB, RGB-D, LoRA"></a><a href="#️-msmformer-training"><img src="media/toc/06-dark.svg#gh-dark-mode-only" width="49%" alt="06 · Training: Fine-tune MSMFormer: RGB, RGB-D, LoRA"></a>
-<a href="#-live-ros-node-on-the-robot"><img src="media/toc/07-light.svg#gh-light-mode-only" width="49%" alt="07 · Live ROS Node: Serve predictions to the HoloLens"></a><a href="#-live-ros-node-on-the-robot"><img src="media/toc/07-dark.svg#gh-dark-mode-only" width="49%" alt="07 · Live ROS Node: Serve predictions to the HoloLens"></a>
-<a href="#-evaluation"><img src="media/toc/08-light.svg#gh-light-mode-only" width="49%" alt="08 · Evaluation: Score a model on the HumanPlay test set"></a><a href="#-evaluation"><img src="media/toc/08-dark.svg#gh-dark-mode-only" width="49%" alt="08 · Evaluation: Score a model on the HumanPlay test set"></a>
-<a href="#-known-error-fixes"><img src="media/toc/09-light.svg#gh-light-mode-only" width="49%" alt="09 · Troubleshooting: Fixes for common install and runtime errors"></a><a href="#-known-error-fixes"><img src="media/toc/09-dark.svg#gh-dark-mode-only" width="49%" alt="09 · Troubleshooting: Fixes for common install and runtime errors"></a>
-<a href="#-built-on"><img src="media/toc/more-light.svg#gh-light-mode-only" width="49%" alt="✦ · Credits · Cite · Contact: Built on, citation, contact, thanks"></a><a href="#-built-on"><img src="media/toc/more-dark.svg#gh-dark-mode-only" width="49%" alt="✦ · Credits · Cite · Contact: Built on, citation, contact, thanks"></a>
+<a href="#-datasets"><img src="media/toc/01.svg" width="49%" alt="01 · Datasets: Download the data and see where it goes"></a>
+<a href="#-checkpoints"><img src="media/toc/02.svg" width="49%" alt="02 · Checkpoints: Pretrained and iTeach fine-tuned weights"></a>
+<a href="#️-setup"><img src="media/toc/03.svg" width="49%" alt="03 · Setup: Install with Docker or locally"></a>
+<a href="#️-iteach-humanplay-data-layout"><img src="media/toc/04.svg" width="49%" alt="04 · Data Layout: What every scene folder must contain"></a>
+<a href="#-generating-ground-truth-masks-for-new-humanplay-scenes"><img src="media/toc/05.svg" width="49%" alt="05 · Ground-Truth Masks: Turn a new capture into labels with SAM2"></a>
+<a href="#️-msmformer-training"><img src="media/toc/06.svg" width="49%" alt="06 · Training: Fine-tune MSMFormer: RGB, RGB-D, LoRA"></a>
+<a href="#-live-ros-node-on-the-robot"><img src="media/toc/07.svg" width="49%" alt="07 · Live ROS Node: Serve predictions to the HoloLens"></a>
+<a href="#-evaluation"><img src="media/toc/08.svg" width="49%" alt="08 · Evaluation: Score a model on the HumanPlay test set"></a>
+<a href="#-known-error-fixes"><img src="media/toc/09.svg" width="49%" alt="09 · Troubleshooting: Fixes for common install and runtime errors"></a>
+<a href="#-built-on"><img src="media/toc/more.svg" width="49%" alt="✦ · Credits · Cite · Contact: Built on, citation, contact, thanks"></a>
 </p>
 
 <details>
